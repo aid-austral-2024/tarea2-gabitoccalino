@@ -31,7 +31,7 @@ La protrusión del pistón se mide con un comparador de carátula. El pistón se
 
 ![Medición de la protrusión del pistón](images/measurement.png)
 
-# Problemática abordada.
+## Problemática abordada.
 
 Para la medición de la característica mencionada en un proceso de ensamblaje de motores diésel, el comparador está vinculado a un mecanismo de control automático. De este modo, si la protrusión del pistón se encuentra dentro de los límites de aceptación, el proceso continúa. En caso contrario, el producto debe ser revisado y reparado.
 
@@ -41,7 +41,7 @@ El motivo de este comportamiento parece ser cultural. Según se indicó, esta pr
 
 La propuesta del departamento de Calidad es llevar a cabo una investigación en profundidad sobre este asunto para solucionar los inconvenientes que enfrenta el personal operativo, así como también para asegurar la veracidad y la calidad de las mediciones realizadas en el producto final.
 
-# Análisis preliminar.
+## Análisis preliminar.
 
 En primera instancia, se solicitó al personal operativo que se pusiera fin a la mala práctica y que comenzara a dejar registro de las mediciones reales, con el fin de contar con datos fehacientes.
 
@@ -49,7 +49,7 @@ En segundo lugar, se procedió a relevar los modelos de motores afectados por la
 
 Para esta familia de producto, la medición de protrusión del pistón debe estar en el rango 0.63 mm a 0.87 mm para ser considerada como aceptable.
 
-# Limpieza de datos.
+# Limpieza y preparación de los datos.
 
 ## Librerías utilizadas.
 
@@ -66,7 +66,9 @@ library(knitr)
 
 Se encuentran irregularidades en los datos obtenidos de la base de datos. Algunos de ellos utilizan el punto como separador de decimales mientras que otros utilizan la coma.
 
-En cuanto a los datos propiamente, se encuentran varias mediciones con valor el valor cero. Esto corresponde a mediciones que no fueron realizadas debido a que el equipo se encontraba fuera de servicio o en mantenimiento.Por otro lado, también se evidencia una gran cantidad de valores atípicos que deberán ser filtrados.
+En cuanto a los datos propiamente, se encuentran varias mediciones con valor el valor cero. Esto corresponde a mediciones que no fueron realizadas debido a que el equipo se encontraba fuera de servicio o en mantenimiento.
+
+Por otro lado, también se evidencia una gran cantidad de valores atípicos extremos que deberán ser filtrados.
 
 ```{r}
 
@@ -86,6 +88,8 @@ upper_bound <- Q3 + 3.5 * (Q3 - Q1)
 ```
 
 # Análisis descriptivo.
+
+## Medidas de resumen.
 
 Se dividió a la muestra de datos históricos en dos subpoblaciones. El "Grupo A" corresponde a los datos previos al inicio de la investigación, mientras que el "Grupo B" incluye los datos obtenidos después de que se dejó de manipular el instrumento de medición.
 
@@ -116,7 +120,9 @@ kable(Resumen, caption = "Resumen de Medidas Descriptivas por Grupo")
 
 ```
 
-Adicionalmente, se generó un gráfico de dispersión para una primera y rápida visualización de los datos. Los colores corresponden a las dos poblaciones mencionadas.
+## Gráfico de dispersión.
+
+Para completar la primer etapa del análisis, se generó un gráfico de dispersión. Los colores corresponden a las dos poblaciones mencionadas.Incluye las tolerancias de las especificaciones definifas por ingeniería para la protrusión del pistón a modo de referencia (0.75 +/- 0.12 mm).
 
 ```{r}
 
@@ -124,7 +130,10 @@ lower_limit <- 0.75 - 0.12  # 0.63
 nominal <- 0.75
 upper_limit <- 0.75 + 0.12  # 0.87
 
-# Gráfico de dispersión
+```
+
+```{r echo = FALSE}
+
 ggplot(data = TDC, aes(x = TIME_STAMP, y = VALUE, color = GRUPO)) +
   geom_point(size = 1.5, alpha = 0.8) +
   geom_hline(yintercept = lower_limit, linetype = "dashed", color = "#CD6839", linewidth = 1) +
