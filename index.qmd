@@ -69,23 +69,20 @@ En cuanto a los datos propiamente, se encuentran varias mediciones con valor el 
 
 ```{r}
 
-TDC <- read_excel("C:/Users/M2WJMV5/Downloads/TDC.xlsx")
+TDC <- read_excel("data/PP.xlsx")
+
+TDC <- TDC %>%
+  mutate(VALUE = gsub(",", ".", VALUE) %>% as.numeric())
 
 TDC <- TDC |>
   mutate(VALUE = if_else(VALUE == 0, NA_real_, VALUE))
 
-# Filtrar los datos eliminando outliers y asigno un grupo ----
-
 Q1 <- quantile(TDC$VALUE, 0.25, na.rm = TRUE)
 Q3 <- quantile(TDC$VALUE, 0.75, na.rm = TRUE)
-lower_bound <- Q1 - 1.5 * (Q3 - Q1)
-upper_bound <- Q3 + 1.5 * (Q3 - Q1)
+lower_bound <- Q1 - 3.5 * (Q3 - Q1) 
+upper_bound <- Q3 + 3.5 * (Q3 - Q1)
 
-```
-
-Se divide la muestra de datos históricos en dos subpoblaciones. El "Grupo A" corresponde a los datos previos al inicio de la investigación, mientras que el "Grupo B" incluye los datos obtenidos después de que se dejó de manipular el instrumento de medición.
-
-```{r}
+#Por la naturaleza de los datos, se multiplica el IQR por 3.5 para eliminar sólo los valores atìpicos extremos.
 
 TDC <- TDC |>
   filter(VALUE >= lower_bound & VALUE <= upper_bound) |>
@@ -93,7 +90,9 @@ TDC <- TDC |>
 
 ```
 
-Se crea un gráfico de dispersión para una primera visualización de los datos.
+Se dividió a la muestra de datos históricos en dos subpoblaciones. El "Grupo A" corresponde a los datos previos al inicio de la investigación, mientras que el "Grupo B" incluye los datos obtenidos después de que se dejó de manipular el instrumento de medición.
+
+Adicionalmente, se generó un gráfico de dispersión para una primera y rápida visualización de los datos. Los colores corresponden a las dos poblaciones.
 
 ```{r}
 
@@ -101,23 +100,25 @@ lower_limit <- 0.75 - 0.12  # 0.63
 nominal <- 0.75
 upper_limit <- 0.75 + 0.12  # 0.87
 
-ggplot(data = TDC, aes(x = TIME_STAMP, y = VALUE, color = TOP_NUMBER)) +
-  geom_point(size = 2) +
-  labs(title = "Gráfico de Dispersión de altura PMS",
-       x = "Time Stamp",
+# Gráfico de dispersión
+ggplot(data = TDC, aes(x = TIME_STAMP, y = VALUE, color = GRUPO)) +
+  geom_point(size = 3, alpha = 0.8) +  # Puntos de dispersión
+  geom_hline(yintercept = lower_limit, linetype = "dashed", color = "#CD6839", linewidth = 1) +
+  geom_hline(yintercept = upper_limit, linetype = "dashed", color = "#CD6839", linewidth = 1) +
+  geom_hline(yintercept = nominal, linetype = "solid", color = "#CD6839", linewidth = 1.2) +
+  labs(title = "Gráfico de Dispersión de la Variable VALUE",
+       x = "Fecha y Hora",
        y = "Value",
-       color = "Top Number") +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") + 
-  scale_y_continuous(limits = c(0.5, 0.9)) +
-  geom_vline(xintercept = as.POSIXct("2024-08-07"), linetype = "dashed", color = "red") + 
-  annotate("text", x = as.POSIXct("2024-08-15"), y = 0.85, label = "PUNTO DE CORTE", vjust = -1, color = "red") +  
-  geom_hline(yintercept = lower_limit, linetype = "dashed", color = "black") + 
-  geom_hline(yintercept = upper_limit, linetype = "dashed", color = "black") +
-  geom_hline(yintercept = nominal, linetype = "dashed", color = "black") +
-  theme(legend.position = "bottom",
-        legend.justification = "center",
-        legend.title.align = 0.5)
+       color = "Grupo") +
+  scale_color_manual(values = c("A" = "#7EC0EE", "B" = "#90EE90")) +  # Colores por grupo
+  theme_minimal(base_size = 14) +  # Tema minimalista
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),  # Título centrado y en negrita
+    plot.subtitle = element_text(hjust = 0.5, margin = margin(b = 10)),  # Espaciado del subtítulo
+    axis.title = element_text(face = "bold"),
+    legend.position = "bottom"
+  )
+
 
 ```
 
@@ -135,7 +136,8 @@ Resumen <- TDC |>
     max = round(max(VALUE, na.rm = TRUE), 3),
     n = n()
   )
-  
-kable(Resumen, caption = "Medidas de Resumen por Grupo")
+
+View(Resumen)
+#kable(Resumen, caption = "Medidas de Resumen por Grupo")
 
 ```
