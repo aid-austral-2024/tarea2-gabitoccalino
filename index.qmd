@@ -102,26 +102,26 @@ upper_limit <- 0.75 + 0.12  # 0.87
 
 # Gráfico de dispersión
 ggplot(data = TDC, aes(x = TIME_STAMP, y = VALUE, color = GRUPO)) +
-  geom_point(size = 3, alpha = 0.8) +  # Puntos de dispersión
+  geom_point(size = 1.5, alpha = 0.8) +
   geom_hline(yintercept = lower_limit, linetype = "dashed", color = "#CD6839", linewidth = 1) +
   geom_hline(yintercept = upper_limit, linetype = "dashed", color = "#CD6839", linewidth = 1) +
   geom_hline(yintercept = nominal, linetype = "solid", color = "#CD6839", linewidth = 1.2) +
-  labs(title = "Gráfico de Dispersión de la Variable VALUE",
-       x = "Fecha y Hora",
-       y = "Value",
+  labs(title = "Gráfico de Dispersión de la protrusión del pistón",
+       x = "Fecha",
+       y = "Valor",
        color = "Grupo") +
-  scale_color_manual(values = c("A" = "#7EC0EE", "B" = "#90EE90")) +  # Colores por grupo
-  theme_minimal(base_size = 14) +  # Tema minimalista
+  scale_color_manual(values = c("A" = "#7EC0EE", "B" = "#90EE90")) +
+  theme_minimal(base_size = 10) +
   theme(
-    plot.title = element_text(face = "bold", hjust = 0.5),  # Título centrado y en negrita
-    plot.subtitle = element_text(hjust = 0.5, margin = margin(b = 10)),  # Espaciado del subtítulo
+    plot.title = element_text(face = "bold", hjust = 0.5),
     axis.title = element_text(face = "bold"),
-    legend.position = "bottom"
+    legend.position = "bottom",
+    panel.grid.major = element_blank(),  # Elimina las líneas de la cuadrícula mayor
+    panel.grid.minor = element_blank()   # Elimina las líneas de la cuadrícula menor
   )
 
 
 ```
-
 Cálculo de principales medidas de resumen para ambos grupos.
 
 ```{r}
