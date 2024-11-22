@@ -49,9 +49,9 @@ En segundo lugar, se procedió a relevar los modelos de motores afectados por la
 
 Para esta familia de producto, la medición de protrusión del pistón debe estar en el rango 0.63 mm a 0.87 mm para ser considerada como aceptable.
 
-# Análisis descriptivo.
+# Limpieza de datos.
 
-## Librerías utilizadas
+## Librerías utilizadas.
 
 ```{r}
 
@@ -83,7 +83,13 @@ Q3 <- quantile(TDC$VALUE, 0.75, na.rm = TRUE)
 lower_bound <- Q1 - 3.5 * (Q3 - Q1) 
 upper_bound <- Q3 + 3.5 * (Q3 - Q1)
 
-#Por la naturaleza de los datos, se multiplica el IQR por 3.5 para eliminar sólo los valores atìpicos extremos.
+```
+
+# Análisis descriptivo.
+
+Se dividió a la muestra de datos históricos en dos subpoblaciones. El "Grupo A" corresponde a los datos previos al inicio de la investigación, mientras que el "Grupo B" incluye los datos obtenidos después de que se dejó de manipular el instrumento de medición.
+
+```{r}
 
 TDC <- TDC |>
   filter(VALUE >= lower_bound & VALUE <= upper_bound) |>
@@ -91,9 +97,26 @@ TDC <- TDC |>
 
 ```
 
-Se dividió a la muestra de datos históricos en dos subpoblaciones. El "Grupo A" corresponde a los datos previos al inicio de la investigación, mientras que el "Grupo B" incluye los datos obtenidos después de que se dejó de manipular el instrumento de medición.
+Cálculo de principales medidas de resumen para ambos grupos.
 
-Adicionalmente, se generó un gráfico de dispersión para una primera y rápida visualización de los datos. Los colores corresponden a las dos poblaciones.
+```{r}
+
+Resumen <- TDC |>
+  group_by(GRUPO) |>
+  summarise(
+    media = round(mean(VALUE, na.rm = TRUE), 3),
+    mediana = round(median(VALUE, na.rm = TRUE), 3),
+    sd = round(sd(VALUE, na.rm = TRUE), 3),
+    min = round(min(VALUE, na.rm = TRUE), 3),
+    max = round(max(VALUE, na.rm = TRUE), 3),
+    n = n()
+  )
+
+kable(Resumen, caption = "Resumen de Medidas Descriptivas por Grupo")
+
+```
+
+Adicionalmente, se generó un gráfico de dispersión para una primera y rápida visualización de los datos. Los colores corresponden a las dos poblaciones mencionadas.
 
 ```{r}
 
@@ -121,25 +144,5 @@ ggplot(data = TDC, aes(x = TIME_STAMP, y = VALUE, color = GRUPO)) +
     panel.grid.minor = element_blank()   # Elimina las líneas de la cuadrícula menor
   )
 
-
-```
-
-Cálculo de principales medidas de resumen para ambos grupos.
-
-```{r}
-
-Resumen <- TDC |>
-  group_by(GRUPO) |>
-  summarise(
-    media = round(mean(VALUE, na.rm = TRUE), 3),
-    mediana = round(median(VALUE, na.rm = TRUE), 3),
-    sd = round(sd(VALUE, na.rm = TRUE), 3),
-    min = round(min(VALUE, na.rm = TRUE), 3),
-    max = round(max(VALUE, na.rm = TRUE), 3),
-    n = n()
-  )
-
-View(Resumen)
-kable(Resumen, caption = "Resumen de Medidas Descriptivas por Grupo")
 
 ```
