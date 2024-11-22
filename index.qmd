@@ -6,6 +6,7 @@ format:
   html:     
     embed-resources: true
     css: estilos.css
+warning: false
 ---
 
 # Introducción.
@@ -122,6 +123,7 @@ ggplot(data = TDC, aes(x = TIME_STAMP, y = VALUE, color = GRUPO)) +
 
 
 ```
+
 Cálculo de principales medidas de resumen para ambos grupos.
 
 ```{r}
@@ -138,6 +140,6 @@ Resumen <- TDC |>
   )
 
 View(Resumen)
-#kable(Resumen, caption = "Medidas de Resumen por Grupo")
+kable(Resumen, caption = "Resumen de Medidas Descriptivas por Grupo")
 
 ```
