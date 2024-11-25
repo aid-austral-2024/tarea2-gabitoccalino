@@ -1,7 +1,6 @@
 ---
 title: "Tarea 2: Análisis Inteligente de Datos"
-autor:
-  - "Gabriel Toccalino"
+autor: "Gabriel Toccalino"
 format:
   html:     
     embed-resources: true
@@ -9,49 +8,51 @@ format:
 warning: false
 ---
 
-# Introducción.
+# 1 - Introducción.
 
-## Definición.
+## 1.1 - Definición.
 
-En los motores de combustión, la protrusión del pistón se refiere a cuánto sobresale la parte superior del pistón por encima de la superficie del bloque del cilindro cuando el pistón está en su punto más alto dentro del cilindro (Punto Muerto Superior o PMS).
+En los motores de combustión, la protrusión del pistón se refiere a cuánto sobresale la parte superior del pistón por encima de la superficie del bloque del cilindro cuando el pistón alcanza su punto más alto dentro del cilindro, conocido como Punto Muerto Superior (PMS).
 
 ![Protrusión del pistón](images/piston_protrusion.png)
 
-## ¿Por qué es importante la Protrusión del Pistón?
+## 1.2 - ¿Por qué es importante la Protrusión del Pistón?
 
--   Relación de Compresión: La relación de compresión es un factor crítico en el rendimiento, eficiencia y emisiones de un motor. La protrusión del pistón afecta el volumen de la cámara de combustión, lo que influye directamente en la relación de compresión.
+-   Relación de compresión: La relación de compresión es un factor crítico en el rendimiento, la eficiencia y las emisiones de un motor. La protrusión del pistón influye directamente en el volumen de la cámara de combustión, lo que afecta la relación de compresión.
 
--   Eficiencia de Combustión: Una protrusión adecuada del pistón garantiza que la mezcla aire-combustible se comprima correctamente, lo que resulta en una combustión óptima. Esto mejora la potencia del motor y la eficiencia del combustible.
+-   Eficiencia de combustión: Una protrusión adecuada del pistón asegura que la mezcla aire-combustible se comprima de manera óptima, mejorando la potencia del motor y la eficiencia del combustible.
 
--   Durabilidad del Motor: Una protrusión adecuada del pistón mantiene la integridad estructural de los componentes del motor, previniendo desgastes prematuros.
+-   Durabilidad del motor: Una protrusión correcta del pistón mantiene la integridad estructural de los componentes del motor, evitando desgastes prematuros.
 
-## ¿Cómo se mide?
+## 1.3 - ¿Cómo se mide?
 
 La protrusión del pistón se mide con un comparador de carátula. El pistón se lleva al PMS y el comparador se utiliza para medir la distancia que sobresale el pistón por encima de la superficie del bloque del cilindro.
 
 ![Medición de la protrusión del pistón](images/measurement.png)
 
-## Problemática abordada.
+## 1.4 - Problemática abordada.
 
-Para la medición de la característica mencionada en un proceso de ensamblaje de motores diésel, el comparador está vinculado a un mecanismo de control automático. De este modo, si la protrusión del pistón se encuentra dentro de los límites de aceptación, el proceso continúa. En caso contrario, el producto debe ser revisado y reparado.
+En el proceso de ensamblaje de motores diésel, la medición de la protrusión del pistón se realiza mediante un comparador vinculado a un mecanismo de control automático. Este sistema verifica si la protrusión está dentro de los límites de aceptación. Si es así, el proceso continúa; en caso contrario, el producto es sometido a revisión y reparación.
 
-Durante una auditoría realizada por el departamento de Calidad, se detectó que las mediciones de la protrusión del pistón estaban siendo manipuladas. El personal operativo explicó que ciertos modelos de motores tienden a tener una altura de protrusión que queda apenas por debajo del límite permitido. En lugar de rechazar el producto, se "corrige" la medición del comparador, de manera que la nueva medición quede dentro de los límites de especificación.
+Durante una auditoría realizada por el departamento de Calidad, se detectó una manipulación en las mediciones de la protrusión del pistón. El personal operativo explicó que algunos modelos de motores presentan valores de protrusión apenas por debajo del límite permitido. En lugar de rechazar estos productos, se ajustaban manualmente las mediciones del comparador para que los valores quedaran dentro de los límites especificados.
 
-El motivo de este comportamiento parece ser cultural. Según se indicó, esta problemática es histórica y ya ha sido reportada a las áreas de soporte correspondientes. Ante la falta de respuesta y considerando los problemas generados en el proceso, se optó por esta práctica, que evidentemente dista de ser la ideal.
+Esta práctica, según el personal, tiene raíces culturales e históricas dentro de la organización. Aunque ya había sido reportada a las áreas de soporte pertinentes, la falta de respuesta llevó a adoptar este comportamiento como solución temporal, pese a no ser la más adecuada.
 
-La propuesta del departamento de Calidad es llevar a cabo una investigación en profundidad sobre este asunto para solucionar los inconvenientes que enfrenta el personal operativo, así como también para asegurar la veracidad y la calidad de las mediciones realizadas en el producto final.
+Ante esta situación, el departamento de Calidad propone una investigación exhaustiva para resolver los problemas enfrentados por el personal operativo y garantizar la precisión y la calidad de las mediciones realizadas en el producto final.
 
-## Análisis preliminar.
+# 2 - Limpieza y preparación de los datos.
 
-En primera instancia, se solicitó al personal operativo que se pusiera fin a la mala práctica y que comenzara a dejar registro de las mediciones reales, con el fin de contar con datos fehacientes.
+## 2.1 - Obtención de los datos y delimitación del problema.
 
-En segundo lugar, se procedió a relevar los modelos de motores afectados por la problemática. Se detectó que todos los modelos afectados pertenecen a una familia común que comparte varios componentes, como el bloque y el conjunto de compresión. En total, son cuatro los modelos de motores afectados.Esto permitió acotar rápidamente el análisis.
+En primer lugar, se solicitó al personal operativo que cesara las prácticas indebidas y comenzara a registrar únicamente las mediciones reales. Esto tenía como objetivo garantizar la disponibilidad de datos confiables para el análisis.
 
-Para esta familia de producto, la medición de protrusión del pistón debe estar en el rango 0.63 mm a 0.87 mm para ser considerada como aceptable.
+En una segunda etapa, se llevó a cabo un relevamiento de los modelos de motores afectados por la problemática. Se identificaron aquellos motores que tienden a presentar mediciones de la protrusión del pistón por debajo de los límites de aceptación establecidos.
 
-# Limpieza y preparación de los datos.
+El análisis reveló que todos los modelos involucrados pertenecen a una misma familia, caracterizada por compartir componentes clave, como el bloque del motor y el conjunto de compresión. En total, se identificaron cuatro modelos de motores afectados.
 
-## Librerías utilizadas.
+Por último, se realizó una consulta a la base de datos de la empresa, extrayendo los valores de todas las mediciones de protrusión registradas desde el año 2020.
+
+## 2.2 - Librerías utilizadas.
 
 ```{r}
 
@@ -62,84 +63,59 @@ library(knitr)
 
 ```
 
-## Importar y limpiar los datos.
+## 2.3 - Importar y limpiar los datos.
 
-Se encuentran irregularidades en los datos obtenidos de la base de datos. Algunos de ellos utilizan el punto como separador de decimales mientras que otros utilizan la coma.
+Se detectaron varias irregularidades en los datos obtenidos de la base de datos:
 
-En cuanto a los datos propiamente, se encuentran varias mediciones con valor el valor cero. Esto corresponde a mediciones que no fueron realizadas debido a que el equipo se encontraba fuera de servicio o en mantenimiento.
+- Inconsistencias en el formato de los datos: Algunas mediciones utilizan el punto como separador decimal, mientras que otras emplean la coma. Esto genera discrepancias al procesar los datos y requiere estandarización para garantizar la integridad del análisis.
 
-Por otro lado, también se evidencia una gran cantidad de valores atípicos extremos que deberán ser filtrados.
+- Mediciones con valor cero: Se identificaron múltiples registros con un valor igual a cero. Estos casos no representan mediciones válidas, ya que corresponden a situaciones en las que el equipo estuvo fuera de servicio o en mantenimiento.
+
+- Valores atípicos extremos: Los datos presentan una cantidad significativa de valores atípicos extremos que deben ser identificados y filtrados antes de proceder con el análisis.
 
 ```{r}
 
-TDC <- read_excel("data/PP.xlsx")
+PMS <- read_excel("data/PP.xlsx")
 
-TDC <- TDC %>%
-  mutate(VALUE = gsub(",", ".", VALUE) %>% as.numeric())
+PMS <- PMS |>
+  mutate(VALUE = gsub(",", ".", VALUE) |> as.numeric())
 
-TDC <- TDC |>
+PMS <- PMS |>
   mutate(VALUE = if_else(VALUE == 0, NA_real_, VALUE))
 
-Q1 <- quantile(TDC$VALUE, 0.25, na.rm = TRUE)
-Q3 <- quantile(TDC$VALUE, 0.75, na.rm = TRUE)
+Q1 <- quantile(PMS$VALUE, 0.25, na.rm = TRUE)
+Q3 <- quantile(PMS$VALUE, 0.75, na.rm = TRUE)
 lower_bound <- Q1 - 3.5 * (Q3 - Q1) 
 upper_bound <- Q3 + 3.5 * (Q3 - Q1)
 
 ```
 
-# Análisis descriptivo.
+Habitualmente, el rango intercuartílico se multiplica por un factor de 1.5 para identificar valores atípicos. Sin embargo, debido a la naturaleza de los datos analizados, se decidió ampliar este factor a 3.5 con el objetivo de excluir únicamente los valores extremadamente atípicos, preservando aquellos que, aunque se encuentren fuera del rango habitual, podrían ser representativos del comportamiento esperado.
 
-## Medidas de resumen.
+# 3 - Análisis descriptivo.
+
+## 3.1 - Gráfico de dispersión.
+
+Para la primera etapa del análisis, se generó un gráfico de dispersión. En este gráfico, los puntos están diferenciados por colores que representan las dos poblaciones previamente mencionadas. Además, se incluyeron las tolerancias de las especificaciones definidas por el departamento de ingeniería para la protrusión del pistón (0.75 ± 0.12 mm) como referencia visual.
 
 Se dividió a la muestra de datos históricos en dos subpoblaciones. El "Grupo A" corresponde a los datos previos al inicio de la investigación, mientras que el "Grupo B" incluye los datos obtenidos después de que se dejó de manipular el instrumento de medición.
 
-```{r}
+```{r echo = FALSE}
 
-TDC <- TDC |>
+PMS <- PMS |>
   filter(VALUE >= lower_bound & VALUE <= upper_bound) |>
   mutate(GRUPO = ifelse(TIME_STAMP < as.POSIXct("2024-08-07 00:00:00"), "A", "B"))
-
-```
-
-Cálculo de principales medidas de resumen para ambos grupos.
-
-```{r}
-
-Resumen <- TDC |>
-  group_by(GRUPO) |>
-  summarise(
-    media = round(mean(VALUE, na.rm = TRUE), 3),
-    mediana = round(median(VALUE, na.rm = TRUE), 3),
-    sd = round(sd(VALUE, na.rm = TRUE), 3),
-    min = round(min(VALUE, na.rm = TRUE), 3),
-    max = round(max(VALUE, na.rm = TRUE), 3),
-    n = n()
-  )
-
-kable(Resumen, caption = "Resumen de Medidas Descriptivas por Grupo")
-
-```
-
-## Gráfico de dispersión.
-
-Para completar la primer etapa del análisis, se generó un gráfico de dispersión. Los colores corresponden a las dos poblaciones mencionadas.Incluye las tolerancias de las especificaciones definifas por ingeniería para la protrusión del pistón a modo de referencia (0.75 +/- 0.12 mm).
-
-```{r}
 
 lower_limit <- 0.75 - 0.12  # 0.63
 nominal <- 0.75
 upper_limit <- 0.75 + 0.12  # 0.87
 
-```
-
-```{r echo = FALSE}
-
-ggplot(data = TDC, aes(x = TIME_STAMP, y = VALUE, color = GRUPO)) +
+ggplot(data = PMS, aes(x = TIME_STAMP, y = VALUE, color = GRUPO)) +
   geom_point(size = 1.5, alpha = 0.8) +
   geom_hline(yintercept = lower_limit, linetype = "dashed", color = "#CD6839", linewidth = 1) +
   geom_hline(yintercept = upper_limit, linetype = "dashed", color = "#CD6839", linewidth = 1) +
   geom_hline(yintercept = nominal, linetype = "solid", color = "#CD6839", linewidth = 1.2) +
-  labs(title = "Gráfico de Dispersión de la protrusión del pistón",
+  labs(title = "Gráfico de dispersión de la protrusión del pistón",
        x = "Fecha",
        y = "Valor",
        color = "Grupo") +
@@ -150,8 +126,58 @@ ggplot(data = TDC, aes(x = TIME_STAMP, y = VALUE, color = GRUPO)) +
     axis.title = element_text(face = "bold"),
     legend.position = "bottom",
     panel.grid.major = element_blank(),  # Elimina las líneas de la cuadrícula mayor
-    panel.grid.minor = element_blank()   # Elimina las líneas de la cuadrícula menor
+    panel.grid.minor = element_blank()
   )
 
+```
+Como se mencionó anteriormente, existen ciertos períodos en los que el equipo estuvo fuera de servicio, lo cual se refleja en los saltos donde no hay mediciones registradas.
+
+También se observa un cambio de tendencia a principios de 2024, con una menor cantidad de puntos que superan el valor nominal para la variable de interés.
+
+Finalmente, parece que, para el grupo B, una mayor proporción de los datos cae fuera de los límites de aceptación.
+
+## 3.2 - Medidas de resumen.
+
+Se calcularon las principales medidas de resumen para poder comparar numéricamente ambos grupos.
+
+```{r}
+
+Resumen <- PMS |>
+  group_by(GRUPO) |>
+  summarise(
+    media = round(mean(VALUE, na.rm = TRUE), 3),
+    mediana = round(median(VALUE, na.rm = TRUE), 3),
+    sd = round(sd(VALUE, na.rm = TRUE), 3),
+    min = round(min(VALUE, na.rm = TRUE), 3),
+    max = round(max(VALUE, na.rm = TRUE), 3),
+    n = n()
+  )
+
+fallas_por_grupo <- PMS |>
+  group_by(GRUPO) |>
+  summarise(
+    fallas = sum(VALUE < lower_limit | VALUE > upper_limit, na.rm = TRUE),
+    total = n(),
+    tasa_fallas = round(fallas / total, 3)
+  )
+
+Resumen <- left_join(Resumen, fallas_por_grupo, by = "GRUPO")
+
+kable(Resumen, caption = "Resumen de Medidas Descriptivas por Grupo")
 
 ```
+Lo primero que destaca es la diferencia en la tasa de fallas entre ambos grupos. Esto parece estar relacionado con la práctica descrita en el informe. Las manipulaciones de las mediciones podrían haber incrementado la tasa de fallas en el grupo B.
+
+Además, al comparar las medidas de tendencia central y dispersión entre ambos grupos, se observa que el grupo B presenta mayor variabilidad en los valores, lo que sugiere que las manipulaciones de las mediciones pueden haber afectado la precisión y la fiabilidad del motor en el largo plazo.
+
+# 4 - Conclusiones y acciones a futuro.
+
+## 4.1 - Sobre el proceso.
+
+El análisis realizado ha revelado que el proceso de medición ha estado sujeto a alteraciones a lo largo del tiempo, lo cual ha afectado la confiabilidad de los datos y la precisión de los resultados. Aunque estas manipulaciones se iniciaron como una medida temporal, han generado distorsiones en el análisis de los motores y sus características. Es fundamental poner fin a esta práctica, no solo para asegurar la exactitud de las mediciones, sino también para fomentar una cultura organizacional que valore la precisión y la transparencia. Eliminar estos comportamientos ayudará a fortalecer la confianza en los datos, mejorará la toma de decisiones y contribuirá a un proceso continuo de mejora de la calidad.
+
+## 4.2 - Próximos pasos.
+
+El siguiente paso será convocar a un equipo interdisciplinario de expertos, que incluya tanto a personal especializado en el proceso de producción como a expertos en el producto final. El objetivo será desarrollar un plan de acción que no solo mejore la precisión de las mediciones, sino que también refuerce los procedimientos operativos, asegurando que se mantengan los estándares de calidad y se eviten problemas a futuro.
+
+Este equipo tendrá la tarea de investigar las causas principales de las alteraciones en las mediciones y proponer soluciones prácticas.
